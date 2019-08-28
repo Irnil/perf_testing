@@ -34,12 +34,35 @@ while 1:
                 try:
                     url = "https://api.bitfinex.com/v1/pubticker/btcusd"
                     response = requests.request("GET", url)
+                    #line = str(response)
+                    mid, bid, ask, last_price, low, high, volume, timestamp = response.text.split(',')
+                    
+                    mid = mid.split(':')[1]
+                    mid = mid[1:-1]
+                    
+                    bid = bid.split(':')[1]
+                    bid = bid[1:-1]
+                    
+                    ask = ask.split(':')[1]
+                    ask = ask[1:-1]
+                    
+                    last_price = last_price.split(':')[1]
+                    last_price = last_price[1:-1]
+                    
+                    low = low.split(':')[1]
+                    low = low[1:-1]
+                    
+                    high = high.split(':')[1]
+                    high = high[1:-1]
+                    
+                    volume = volume.split(':')[1]
+                    volume = volume[1:-1]
+                    
+                    timestamp = timestamp.split(':')[1]
+                    timestamp = timestamp[1:-1]
+                    
+                    print(f"btc,platf=bitfx mid={mid},bid={bid},ask={ask},last_price={last_price},low={low},high={high},volume={volume},timestamp={timestamp}")
 
-                    #json_body = str(response)
-                    #client.write_points(json_body)
-
-                    print("\nBTC:")
-                    print(response.text)   
                     time.sleep(6)
 
                     # url = "https://api.bitfinex.com/v1/pubticker/ethusd"
