@@ -32,13 +32,15 @@ while 1:
 
             while 1:
                 try:
-                    url = "https://api.bitfinex.com/v1/pubticker/btcusd"
+
+                    pairs = ['btcusd', 'ethusd', 'xrpusd', 'ltcusd', 'xmrusd', 'eosusd', 'etcusd', 'omgusd', 'leousd', 'neousd']
+
+                    url = "https://api.bitfinex.com/v1/pubticker/ethusd"
                     response = requests.request("GET", url)
-                    #line = str(response)
                     mid, bid, ask, last_price, low, high, volume, timestamp = response.text.split(',')
                     
-                    mid = mid.split(':')[1]
-                    mid = mid[1:-1]
+                    mid = mid.split(':')[1] #takes second elem of split
+                    mid = mid[1:-1]         #removes first ad last symbol
                     
                     bid = bid.split(':')[1]
                     bid = bid[1:-1]
@@ -59,66 +61,16 @@ while 1:
                     volume = volume[1:-1]
                     
                     timestamp = timestamp.split(':')[1]
-                    timestamp = timestamp[1:-1]
+                    timestamp = timestamp[1:-2]
                     
-                    print(f"btc,platf=bitfx mid={mid},bid={bid},ask={ask},last_price={last_price},low={low},high={high},volume={volume},timestamp={timestamp}")
+                    #print(f"btcusd,platf=bitfx mid={mid},bid={bid},ask={ask},last_price={last_price},low={low},high={high},volume={volume},timestamp={timestamp}")
+                    body = f"ethusd,platf=bitfx mid={mid},bid={bid},ask={ask},last_price={last_price},low={low},high={high},volume={volume},timestamp={timestamp}"
+                    url = f'http://localhost:8086/write?db={dbname}'
+                    response = requests.post(url, data=body)
+                    print('POSTED: ' + body)
 
                     time.sleep(6)
 
-                    # url = "https://api.bitfinex.com/v1/pubticker/ethusd"
-                    # response = requests.request("GET", url)
-                    # print("\nETH:")
-                    # print(response.text) 
-                    # time.sleep(6)  
-
-                    # url = "https://api.bitfinex.com/v1/pubticker/xrpusd"
-                    # response = requests.request("GET", url)
-                    # print("\nXRP:")
-                    # print(response.text) 
-                    # time.sleep(6)
-
-                    # url = "https://api.bitfinex.com/v1/pubticker/ltcusd"
-                    # response = requests.request("GET", url)
-                    # print("\nLTC:")
-                    # print(response.text) 
-                    # time.sleep(6)
-
-                    # url = "https://api.bitfinex.com/v1/pubticker/xmrusd"
-                    # response = requests.request("GET", url)
-                    # print("\nXMR:")
-                    # print(response.text)
-                    # time.sleep(6) 
-
-                    # url = "https://api.bitfinex.com/v1/pubticker/eosusd"
-                    # response = requests.request("GET", url)
-                    # print("\nEOS:")
-                    # print(response.text)
-                    # time.sleep(6) 
-
-                    # url = "https://api.bitfinex.com/v1/pubticker/etcusd"
-                    # response = requests.request("GET", url)
-                    # print("\nETC:")
-                    # print(response.text)
-                    # time.sleep(6) 
-
-                    # url = "https://api.bitfinex.com/v1/pubticker/omgusd"
-                    # response = requests.request("GET", url)
-                    # print("\nOMG:")
-                    # print(response.text)
-                    # time.sleep(6) 
-
-                    # url = "https://api.bitfinex.com/v1/pubticker/leousd"
-                    # response = requests.request("GET", url)
-                    # print("\nLEO:")
-                    # print(response.text) 
-                    # time.sleep(6)
-
-                    # url = "https://api.bitfinex.com/v1/pubticker/neousd"
-                    # response = requests.request("GET", url)
-                    # print("\nNEO:")
-                    # print(response.text)
-                    # time.sleep(6)   
-                
                 except NameError:
                     print('Экстренный выход! Проверьете наличие интернет-соединения, если вы не прерывали программу вручную.')
                     break
