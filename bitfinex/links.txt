@@ -1,0 +1,8 @@
+https://influxdb-python.readthedocs.io/en/latest/api-documentation.html#influxdb.InfluxDBClient.write_points
+https://www.influxdata.com/blog/getting-started-python-influxdb/
+https://issue.life/questions/41591720
+https://github.com/influxdata/influxdb-python
+http://qaru.site/questions/5975499/how-to-write-into-influxdb-using-line-protocol-with-python
+
+
+.\influxd.exe --config .\influxdb.conf
